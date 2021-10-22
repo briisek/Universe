@@ -8,14 +8,27 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
-        <CollectionViewSource x:Key="categoryVlastnost"/>
+        <CollectionViewSource x:Key="categoryPlanetProperties"/>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Center" Height="434" VerticalAlignment="Center" Width="800">
-            <TabItem Header="Properties manager">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Planet Properties Manager">
+                <DataGrid Background="#FFE5E5E5"
+                            x:Name="categoryDataGrid" 
+                            AutoGenerateColumns="False" 
+                            EnableRowVirtualization="True" 
+                            ItemsSource="{Binding Source={StaticResource categoryPlanetProperties}}" 
+                            Margin="13,13,43,229" RowDetailsVisibilityMode="VisibleWhenSelected">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Id}"
+                            Header="Id" Width="SizeToHeader"
+                            IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Nazev}" Header="Nazev" 
+                            Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
-            <TabItem Header="Universe manager">
+            <TabItem Header="Universe Manager">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>

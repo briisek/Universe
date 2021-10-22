@@ -23,16 +23,21 @@ namespace Universe
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly VesmirContext vesmirContext = new VesmirContext();
+        private readonly VesmirContext _vesmirContext = new VesmirContext();
+
+        private CollectionViewSource categoryPlanetProperties;
 
         public MainWindow()
         {
             InitializeComponent();
+            categoryPlanetProperties = (CollectionViewSource)FindResource(nameof(categoryPlanetProperties));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            _vesmirContext.Database.EnsureCreated();
+            _vesmirContext.Vlastnosts.Load();
+            categoryPlanetProperties.Source = _vesmirContext.Vlastnosts.Local.ToObservableCollection();
         }
     }
 }
