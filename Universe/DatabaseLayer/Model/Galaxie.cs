@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 
 #nullable disable
@@ -18,6 +19,6 @@ namespace Universe.DatabaseLayer.Model
         public long? PolohaY { get; set; }
         public long? PolohaZ { get; set; }
 
-        public virtual ICollection<Planetum> Planeta { get; set; }
+        public virtual ICollection<Planetum> Planeta { get; set; } = new ObservableCollection<Planetum>();
     }
 }

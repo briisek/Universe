@@ -8,16 +8,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
-        <CollectionViewSource x:Key="categoryPlanetProperties"/>
+        <CollectionViewSource x:Key="categoryPlanetPropertiesViewSource"/>
+        <CollectionViewSource x:Key="categoryGalaxyViewSource"/>
+        <CollectionViewSource x:Key="categoryPlanetsViewSource"
+                              Source="{Binding Planeta, Source={StaticResource categoryGalaxyViewSource}}"/>
     </Window.Resources>
     <Grid>
-        <TabControl x:Name="tabControl" HorizontalAlignment="Center" Height="434" VerticalAlignment="Center" Width="800">
+        <TabControl x:Name="tabControl" TabStripPlacement="Left" HorizontalAlignment="Center" Height="434" VerticalAlignment="Center" Width="800">
             <TabItem Header="Planet Properties Manager">
                 <DataGrid Background="#FFE5E5E5"
                             x:Name="categoryDataGrid" 
                             AutoGenerateColumns="False" 
                             EnableRowVirtualization="True" 
-                            ItemsSource="{Binding Source={StaticResource categoryPlanetProperties}}" 
+                            ItemsSource="{Binding Source={StaticResource categoryPlanetPropertiesViewSource}}" 
                             Margin="13,13,43,229" RowDetailsVisibilityMode="VisibleWhenSelected">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Id}"
@@ -29,7 +32,38 @@
                 </DataGrid>
             </TabItem>
             <TabItem Header="Universe Manager">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid>
+                    <DataGrid Background="#FFE5E5E5" 
+                            x:Name="galaxiesDataGrid" 
+                            AutoGenerateColumns="False" 
+                            EnableRowVirtualization="True" 
+                            ItemsSource="{Binding Source={StaticResource categoryGalaxyViewSource}}"
+                            Margin="13,13,43,229" RowDetailsVisibilityMode="VisibleWhenSelected">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Id}"
+                            Header="Category Id" Width="SizeToHeader"
+                            IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Jmeno}" Header="Name" 
+                            Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <DataGrid x:Name="planetsDataGrid" 
+                            AutoGenerateColumns="False" 
+                            EnableRowVirtualization="True" 
+                            ItemsSource="{Binding Source={StaticResource categoryPlanetsViewSource}}" 
+                            Margin="13,205,43,108" RowDetailsVisibilityMode="VisibleWhenSelected" 
+                            RenderTransformOrigin="0.488,0.251">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Id}" 
+                            Header="Id" Width="SizeToHeader"
+                            IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Jmeno}" Header="Jmeno" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Velikost}" Header="Velikost" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding GalaxieId}" Header="Galaxie Id" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Identifikator}" Header="Identifikator" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
         </TabControl>
 

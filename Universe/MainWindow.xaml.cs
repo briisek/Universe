@@ -25,19 +25,29 @@ namespace Universe
     {
         private readonly VesmirContext _vesmirContext = new VesmirContext();
 
-        private CollectionViewSource categoryPlanetProperties;
+        private CollectionViewSource categoryPlanetPropertiesViewSource;
+        private CollectionViewSource categoryGalaxyViewSource;
 
         public MainWindow()
         {
             InitializeComponent();
-            categoryPlanetProperties = (CollectionViewSource)FindResource(nameof(categoryPlanetProperties));
+            categoryPlanetPropertiesViewSource = (CollectionViewSource)FindResource(nameof(categoryPlanetPropertiesViewSource));
+            categoryGalaxyViewSource = (CollectionViewSource)FindResource(nameof(categoryGalaxyViewSource));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             _vesmirContext.Database.EnsureCreated();
             _vesmirContext.Vlastnosts.Load();
-            categoryPlanetProperties.Source = _vesmirContext.Vlastnosts.Local.ToObservableCollection();
+            _vesmirContext.Galaxies.Load();
+            categoryPlanetPropertiesViewSource.Source = _vesmirContext.Vlastnosts.Local.ToObservableCollection();
+            categoryGalaxyViewSource.Source = _vesmirContext.Galaxies.Local.ToObservableCollection();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            _vesmirContext.Dispose();
+            base.OnClosing(e);
         }
     }
 }
