@@ -8,64 +8,107 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
-        <CollectionViewSource x:Key="categoryPlanetPropertiesViewSource"/>
-        <CollectionViewSource x:Key="categoryGalaxyViewSource"/>
-        <CollectionViewSource x:Key="categoryPlanetsViewSource"
-                              Source="{Binding Planeta, Source={StaticResource categoryGalaxyViewSource}}"/>
+        <CollectionViewSource x:Key="vlastnostViewSource"/>
+
+        <CollectionViewSource x:Key="galaxieViewSource"/>
+        <CollectionViewSource x:Key="planetumViewSource"
+                              Source="{Binding Planeta, Source={StaticResource galaxieViewSource}, Mode=TwoWay}"/>
+        
+        <DataTemplate x:Key="DataTemplate">
+            <ListBox ItemsSource="{Binding VlastnostiPlanets}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+
+                            <TextBlock Text="{Binding Vlastnost.Nazev}"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DataTemplate>
     </Window.Resources>
+
     <Grid>
-        <TabControl x:Name="tabControl" TabStripPlacement="Left" HorizontalAlignment="Center" Height="434" VerticalAlignment="Center" Width="800">
+        <TabControl x:Name="tcUniverse">
+
             <TabItem Header="Planet Properties Manager">
+                
                 <DataGrid Background="#FFE5E5E5"
-                            x:Name="categoryDataGrid" 
+                            x:Name="vlastnostDataGrid" 
                             AutoGenerateColumns="False" 
                             EnableRowVirtualization="True" 
-                            ItemsSource="{Binding Source={StaticResource categoryPlanetPropertiesViewSource}}" 
-                            Margin="13,13,43,229" RowDetailsVisibilityMode="VisibleWhenSelected">
+                            ItemsSource="{Binding Source={StaticResource vlastnostViewSource}}" 
+                            Margin="13,13,43,47" RowDetailsVisibilityMode="VisibleWhenSelected"
+                          >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Id}"
-                            Header="Id" Width="SizeToHeader"
-                            IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding Nazev}" Header="Nazev" 
-                            Width="*"/>
+                        <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="SizeToHeader" IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding Nazev}" Header="Nazev" Width="*"/>
+                        <DataGridTextColumn Binding="{Binding VlastnostiPlanets.Count}" Header="Pocet planet s vlastnosti" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
+
             <TabItem Header="Universe Manager">
-                <Grid>
-                    <DataGrid Background="#FFE5E5E5" 
-                            x:Name="galaxiesDataGrid" 
+                <Grid x:Name="grdUniverseManager">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="40*" />
+                        <RowDefinition Height="10*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <DataGrid x:Name="galaxiesDataGrid"
+                              Grid.Row="0"
+                              Grid.ColumnSpan="2"
                             AutoGenerateColumns="False" 
                             EnableRowVirtualization="True" 
-                            ItemsSource="{Binding Source={StaticResource categoryGalaxyViewSource}}"
-                            Margin="13,13,43,229" RowDetailsVisibilityMode="VisibleWhenSelected">
+                            ItemsSource="{Binding Source={StaticResource galaxieViewSource}}"
+                            RowDetailsVisibilityMode="VisibleWhenSelected"
+                            SelectionChanged="galaxiesDataGrid_SelectionChanged">
+
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Id}"
                             Header="Category Id" Width="SizeToHeader"
                             IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Jmeno}" Header="Name" 
-                            Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Jmeno}" Header="Name" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Planeta.Count}" Header="Pocet planet" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding PolohaX}" Header="PolohaX" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding PolohaY}" Header="PolohaY" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding PolohaZ}" Header="PolohaZ" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid x:Name="planetsDataGrid" 
+
+                    <DataGrid x:Name="planetsDataGrid"                              
+                              Grid.Row="2"
+                              Grid.ColumnSpan="2"
+                            SelectionMode="Single"
                             AutoGenerateColumns="False" 
                             EnableRowVirtualization="True" 
-                            ItemsSource="{Binding Source={StaticResource categoryPlanetsViewSource}}" 
-                            Margin="13,205,43,108" RowDetailsVisibilityMode="VisibleWhenSelected" 
-                            RenderTransformOrigin="0.488,0.251">
+                            ItemsSource="{Binding Source={StaticResource  planetumViewSource}}"
+                            RowDetailsVisibilityMode="VisibleWhenSelected"
+                            SelectionChanged="planetsDataGrid_SelectionChanged">
+
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Id}" 
                             Header="Id" Width="SizeToHeader"
                             IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Jmeno}" Header="Jmeno" Width="*"/>
                             <DataGridTextColumn Binding="{Binding Velikost}" Header="Velikost" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding GalaxieId}" Header="Galaxie Id" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Identifikator}" Header="Identifikator" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding VlastnostiPlanets.Count}" Header="Vlastnosti" Width="*"/>
+                            <DataGridTemplateColumn Header="Checks" Width="150" CellTemplate="{StaticResource DataTemplate}" />
                         </DataGrid.Columns>
                     </DataGrid>
+
+                    <StackPanel x:Name="st1" Grid.Row="3" Orientation="Horizontal">
+                    </StackPanel>
+                    
                 </Grid>
+                
             </TabItem>
         </TabControl>
-
     </Grid>
 </Window>

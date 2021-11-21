@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 #nullable disable
 
@@ -20,5 +21,6 @@ namespace Universe.DatabaseLayer.Model
 
         public virtual Galaxie Galaxie { get; set; }
         public virtual ICollection<VlastnostiPlanet> VlastnostiPlanets { get; set; }
+
     }
 }
