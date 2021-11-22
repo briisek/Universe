@@ -14,12 +14,12 @@
         <CollectionViewSource x:Key="planetumViewSource"
                               Source="{Binding Planeta, Source={StaticResource galaxieViewSource}, Mode=TwoWay}"/>
         
+        <!-- Try out templates -->
         <DataTemplate x:Key="DataTemplate">
             <ListBox ItemsSource="{Binding VlastnostiPlanets}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
-
                             <TextBlock Text="{Binding Vlastnost.Nazev}"/>
                         </WrapPanel>
                     </DataTemplate>
@@ -32,20 +32,38 @@
         <TabControl x:Name="tcUniverse">
 
             <TabItem Header="Planet Properties Manager">
-                
-                <DataGrid Background="#FFE5E5E5"
-                            x:Name="vlastnostDataGrid" 
+                <Grid x:Name="grdPropertiesManager">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid Background="#FFE5E5E5"
+                            x:Name="vlastnostDataGrid"
+                              Grid.Row="0"
+                              CanUserAddRows="False"
                             AutoGenerateColumns="False" 
                             EnableRowVirtualization="True" 
                             ItemsSource="{Binding Source={StaticResource vlastnostViewSource}}" 
                             Margin="13,13,43,47" RowDetailsVisibilityMode="VisibleWhenSelected"
                           >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="SizeToHeader" IsReadOnly="True"/>
-                        <DataGridTextColumn Binding="{Binding Nazev}" Header="Nazev" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding VlastnostiPlanets.Count}" Header="Pocet planet s vlastnosti" Width="*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="SizeToHeader" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Nazev}" Header="Name" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding VlastnostiPlanets.Count, Mode=OneWay}" Header="Number of planets with this property" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel x:Name="stPropertiesManager" Grid.Row="2" Orientation="Horizontal" Margin="13,0,13,13">
+                        <Label Content="_Property name:" Target="{Binding ElementName=txtPropertyName}" Margin="0,0,20,0"/>
+                        <TextBox Name="txtPropertyName" MinWidth="150" Margin="0,0,20,0" />
+                        <Button Grid.Row="2" Margin="0,0,20,0" Padding="10,5,10,5" Click="Button_Click">Add</Button>
+                        <Button Grid.Row="2" Padding="10,5,10,5">Remove</Button>
+                    </StackPanel>
+                </Grid>
             </TabItem>
 
             <TabItem Header="Universe Manager">
@@ -60,31 +78,36 @@
                         <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
 
+                    <GroupBox x:Name="GalaxiesGroupBox"
+                      Grid.Row="0"
+                      Header="Galaxies">
 
-                    <DataGrid x:Name="galaxiesDataGrid"
-                              Grid.Row="0"
-                              Grid.ColumnSpan="2"
+                        <DataGrid x:Name="galaxiesDataGrid"
                             AutoGenerateColumns="False" 
                             EnableRowVirtualization="True" 
                             ItemsSource="{Binding Source={StaticResource galaxieViewSource}}"
                             RowDetailsVisibilityMode="VisibleWhenSelected"
                             SelectionChanged="galaxiesDataGrid_SelectionChanged">
 
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Id}"
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Id}"
                             Header="Category Id" Width="SizeToHeader"
                             IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Jmeno}" Header="Name" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Planeta.Count}" Header="Pocet planet" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding PolohaX}" Header="PolohaX" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding PolohaY}" Header="PolohaY" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding PolohaZ}" Header="PolohaZ" Width="*"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                                <DataGridTextColumn Binding="{Binding Jmeno}" Header="Name" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding PolohaX}" Header="CoordinateX" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding PolohaY}" Header="CoordinateY" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding PolohaZ}" Header="CoordinateZ" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding Planeta.Count, Mode=OneWay}" Header="Number of planets" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
 
-                    <DataGrid x:Name="planetsDataGrid"                              
+                    <GroupBox x:Name="PlanetsGroupBox"
+                      Grid.Row="2"
+                      Header="Planets">
+                        
+                        <DataGrid x:Name="planetsDataGrid"                              
                               Grid.Row="2"
-                              Grid.ColumnSpan="2"
                             SelectionMode="Single"
                             AutoGenerateColumns="False" 
                             EnableRowVirtualization="True" 
@@ -92,20 +115,21 @@
                             RowDetailsVisibilityMode="VisibleWhenSelected"
                             SelectionChanged="planetsDataGrid_SelectionChanged">
 
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Id}" 
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Id}" 
                             Header="Id" Width="SizeToHeader"
                             IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Jmeno}" Header="Jmeno" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Velikost}" Header="Velikost" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding VlastnostiPlanets.Count}" Header="Vlastnosti" Width="*"/>
-                            <DataGridTemplateColumn Header="Checks" Width="150" CellTemplate="{StaticResource DataTemplate}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
+                                <DataGridTextColumn Binding="{Binding Jmeno}" Header="Name" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding Velikost}" Header="Size" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding VlastnostiPlanets.Count, Mode=OneWay}" Header="Number of properties" Width="*"/>
+                                <DataGridTemplateColumn Header="Properties" Width="150" CellTemplate="{StaticResource DataTemplate}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
 
-                    <StackPanel x:Name="st1" Grid.Row="3" Orientation="Horizontal">
-                    </StackPanel>
-                    
+                    <!-- Checkboxes -->
+                    <StackPanel x:Name="st1" Grid.Row="3" Orientation="Horizontal" />
+
                 </Grid>
                 
             </TabItem>

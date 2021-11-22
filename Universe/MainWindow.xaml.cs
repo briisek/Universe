@@ -127,6 +127,16 @@ namespace Universe
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtPropertyName.Text)) return;
+
+            int maxId = _context.Vlastnosts.Max(x => x.Id);
+            Vlastnost vlastnost = new Vlastnost() { Nazev = txtPropertyName.Text, Id = maxId + 1  };
+            _context.Vlastnosts.Add(vlastnost);
+            _context.SaveChanges();
+
+        }
     }
 }
 
