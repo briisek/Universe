@@ -14,9 +14,9 @@
         <CollectionViewSource x:Key="planetumViewSource"
                               Source="{Binding Planeta, Source={StaticResource galaxieViewSource}, Mode=TwoWay}"/>
         
-        <!-- Try out templates -->
+        <!-- Trying out templates :-) -->
         <DataTemplate x:Key="DataTemplate">
-            <ListBox ItemsSource="{Binding VlastnostiPlanets}">
+            <ListBox ItemsSource="{Binding VlastnostiPlanets, Mode=OneWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
@@ -30,7 +30,7 @@
 
     <Grid>
         <TabControl x:Name="tcUniverse">
-
+            <!-- Properties -->
             <TabItem Header="Planet Properties Manager">
                 <Grid x:Name="grdPropertiesManager">
                     <Grid.RowDefinitions>
@@ -43,14 +43,14 @@
                     </Grid.ColumnDefinitions>
 
                     <DataGrid Background="#FFE5E5E5"
-                            x:Name="vlastnostDataGrid"
-                              Grid.Row="0"
-                              CanUserAddRows="False"
+                            x:Name="propertiesDataGrid"
+                            Grid.Row="0"
+                            CanUserAddRows="False"
                             AutoGenerateColumns="False" 
                             EnableRowVirtualization="True" 
                             ItemsSource="{Binding Source={StaticResource vlastnostViewSource}}" 
                             Margin="13,13,43,47" RowDetailsVisibilityMode="VisibleWhenSelected"
-                          >
+                            PreviewKeyDown="DataGrid_PreviewKeyDown">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="SizeToHeader" IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Nazev}" Header="Name" Width="*"/>
@@ -59,13 +59,14 @@
                     </DataGrid>
                     <StackPanel x:Name="stPropertiesManager" Grid.Row="2" Orientation="Horizontal" Margin="13,0,13,13">
                         <Label Content="_Property name:" Target="{Binding ElementName=txtPropertyName}" Margin="0,0,20,0"/>
-                        <TextBox Name="txtPropertyName" MinWidth="150" Margin="0,0,20,0" />
-                        <Button Grid.Row="2" Margin="0,0,20,0" Padding="10,5,10,5" Click="Button_Click">Add</Button>
-                        <Button Grid.Row="2" Padding="10,5,10,5">Remove</Button>
+                        <TextBox x:Name="txtPropertyName" MinWidth="150" Margin="0,0,20,0"/>
+                        <Button x:Name="btnAddProperty" Grid.Row="2" IsEnabled="{Binding ElementName=txtPropertyName,Path=Text.Length}" Margin="0,0,20,0" Padding="10,5,10,5" Click="BtnAddProperty_Click">Add</Button>
+                        <Button x:Name="btnRemoveProperties" Grid.Row="2" IsEnabled="{Binding ElementName=propertiesDataGrid, Path=SelectedItems.Count}" Padding="10,5,10,5" Click="BtnRemoveProperties_Click">Remove</Button>
                     </StackPanel>
                 </Grid>
             </TabItem>
 
+            <!-- Universe -->
             <TabItem Header="Universe Manager">
                 <Grid x:Name="grdUniverseManager">
                     <Grid.RowDefinitions>
@@ -78,6 +79,7 @@
                         <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
 
+                    <!-- Galaxies -->
                     <GroupBox x:Name="GalaxiesGroupBox"
                       Grid.Row="0"
                       Header="Galaxies">
@@ -87,7 +89,7 @@
                             EnableRowVirtualization="True" 
                             ItemsSource="{Binding Source={StaticResource galaxieViewSource}}"
                             RowDetailsVisibilityMode="VisibleWhenSelected"
-                            SelectionChanged="galaxiesDataGrid_SelectionChanged">
+                            SelectionChanged="GalaxiesDataGrid_SelectionChanged">
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Id}"
@@ -102,10 +104,11 @@
                         </DataGrid>
                     </GroupBox>
 
+                    <!-- Planets -->
                     <GroupBox x:Name="PlanetsGroupBox"
                       Grid.Row="2"
                       Header="Planets">
-                        
+
                         <DataGrid x:Name="planetsDataGrid"                              
                               Grid.Row="2"
                             SelectionMode="Single"
@@ -113,7 +116,7 @@
                             EnableRowVirtualization="True" 
                             ItemsSource="{Binding Source={StaticResource  planetumViewSource}}"
                             RowDetailsVisibilityMode="VisibleWhenSelected"
-                            SelectionChanged="planetsDataGrid_SelectionChanged">
+                            SelectionChanged="PlanetsDataGrid_SelectionChanged">
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Id}" 
@@ -127,11 +130,10 @@
                         </DataGrid>
                     </GroupBox>
 
-                    <!-- Checkboxes -->
-                    <StackPanel x:Name="st1" Grid.Row="3" Orientation="Horizontal" />
-
+                    <GroupBox Header="Properties" Grid.Row="3">
+                        <StackPanel x:Name="stCheckBoxes" Orientation="Horizontal" Margin="0,10,0,10"/>
+                    </GroupBox>
                 </Grid>
-                
             </TabItem>
         </TabControl>
     </Grid>
