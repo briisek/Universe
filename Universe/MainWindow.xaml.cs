@@ -185,6 +185,17 @@ namespace Universe
             _ = _context.SaveChanges();
             RefreshDataGrids();
         }
+
+        private void BtnAddPlanet_Click(object sender, RoutedEventArgs e) 
+        {
+            MessageBox.Show("Doplnim");
+        }
+
+        private void BtnRemovePlanets_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Doplnim");
+        }
+
         #endregion
     }
 }
