@@ -189,6 +189,17 @@ namespace Universe
         private void BtnAddPlanet_Click(object sender, RoutedEventArgs e) 
         {
             MessageBox.Show("Doplnim");
+
+            /*if (string.IsNullOrEmpty(txtPlanetName.Text))
+            {
+                return;
+            }
+
+            Galaxie galaxy = (Galaxie)galaxiesDataGrid.SelectedItem;
+            Planetum planetum = new() { Jmeno = txtPlanetName.Text, Id = _context.Planeta.Max(x => x.Id) + 1, Galaxie = galaxy };
+            _ = _context.Planeta.Add(planetum);
+            _ = _context.SaveChanges();
+            PlanetsDataGrid_SelectionChanged(planetsDataGrid, null);*/
         }
 
         private void BtnRemovePlanets_Click(object sender, RoutedEventArgs e)
