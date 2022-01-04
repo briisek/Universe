@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using LinqToDB.DataProvider.SqlServer;
+using LinqToDB;
 using LinqToDB.Mapping;
 
 namespace Universe.Entities
@@ -15,7 +16,7 @@ namespace Universe.Entities
             VlastnostiPlanets = new HashSet<VlastnostiPlanet>();
         }
         
-        [PrimaryKey, Identity]
+        [PrimaryKey]
         public int Id { get; set; }
         
         [Column, Nullable]

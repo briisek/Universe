@@ -13,11 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-using Microsoft.EntityFrameworkCore;
-using Universe.DatabaseLayer;
-using Universe.DatabaseLayer.Model;
+//using Microsoft.EntityFrameworkCore;
+//using Universe.DatabaseLayer;
+//using Universe.DatabaseLayer.Model;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using Universe.DatabaseLayer;
+using Universe.Entities;
 
 namespace Universe
 {
@@ -26,35 +28,25 @@ namespace Universe
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly VesmirContext _context = new VesmirContext();
-
         private CollectionViewSource vlastnostViewSource;
         private CollectionViewSource galaxieViewSource;
 
         public MainWindow()
         {
             InitializeComponent();
-            
-            vlastnostViewSource = (CollectionViewSource)FindResource(nameof(vlastnostViewSource));
-            galaxieViewSource = (CollectionViewSource)FindResource(nameof(galaxieViewSource));
+
+            vlastnostViewSource = (CollectionViewSource) FindResource(nameof(vlastnostViewSource));
+            galaxieViewSource = (CollectionViewSource) FindResource(nameof(galaxieViewSource));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _context.Database.EnsureCreated();
-
-            _context.Vlastnosts.Load();
-            _context.Galaxies.Load();
-            _context.Planeta.Load();
-            _context.VlastnostiPlanets.Load();
-
-            vlastnostViewSource.Source = _context.Vlastnosts.Local.ToObservableCollection();
-            galaxieViewSource.Source = _context.Galaxies.Local.ToObservableCollection();
+            RefreshDataGrids();
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            _context.Dispose();
+            //_context.Dispose();
             base.OnClosing(e);
         }
 
@@ -67,10 +59,10 @@ namespace Universe
                 return;
             }
 
-            Vlastnost vlastnost = new Vlastnost() { Nazev = txtPropertyName.Text, Id = _context.Vlastnosts.Max(x => x.Id) + 1 };
-            _ = _context.Vlastnosts.Add(vlastnost);
-            _ = _context.SaveChanges();
-            PlanetsDataGrid_SelectionChanged(planetsDataGrid, null);
+            UniverseContext.InsertVlastnost(txtPropertyName.Text);
+            RefreshDataGrids();
+            
+            /*PlanetsDataGrid_SelectionChanged(planetsDataGrid, null);*/
         }
 
         private void BtnRemoveProperties_Click(object sender, RoutedEventArgs e)
@@ -78,6 +70,17 @@ namespace Universe
             RemoveProperties();
         }
 
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((DataGrid)sender).SelectedItem == null)
+            {
+                return;
+            }
+
+            Vlastnost vlastnost = ((Vlastnost)((DataGrid)sender).SelectedItem);
+            UniverseContext.UpdateVlastnost(vlastnost.Id,vlastnost.Nazev);
+            RefreshDataGrids();
+        }
         private void DataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
@@ -92,18 +95,16 @@ namespace Universe
 
             foreach (Vlastnost vlastnost in propertiesDataGrid.SelectedItems)
             {
-                _context.VlastnostiPlanets.RemoveRange(_context.VlastnostiPlanets.Where(x => x.VlastnostId == vlastnost.Id));
-                vlastnosts.Add(vlastnost);
+                UniverseContext.DeleteVlastnost(vlastnost);
             }
 
-            _context.RemoveRange(vlastnosts);
-            _context.SaveChanges();
             RefreshDataGrids();
-            PlanetsDataGrid_SelectionChanged(planetsDataGrid, null);
+            /*PlanetsDataGrid_SelectionChanged(planetsDataGrid, null);*/
         }
 
         private void RefreshDataGrids()
         {
+            vlastnostViewSource.Source = UniverseContext.GetAllVlastnosts();
             propertiesDataGrid.Items.Refresh();
             planetsDataGrid.Items.Refresh();
         }
@@ -119,7 +120,7 @@ namespace Universe
         /// <param name="e"></param>
         private void GalaxiesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ICollection<Planetum> planetum = new ObservableCollection<Planetum>();
+            /*ICollection<Planetum> planetum = new ObservableCollection<Planetum>();
 
             foreach (Galaxie galaxie in galaxiesDataGrid.SelectedItems)
             {
@@ -128,9 +129,9 @@ namespace Universe
                     planetum.Add(planeta);
                 }
             }
-            planetsDataGrid.ItemsSource = planetum;
+            planetsDataGrid.ItemsSource = planetum;*/
         }
-        
+
         /// <summary>
         /// Create checkboxes representing planets properties.
         /// </summary>
@@ -138,7 +139,7 @@ namespace Universe
         /// <param name="e"></param>
         private void PlanetsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            stCheckBoxes.Children.Clear();
+            /*stCheckBoxes.Children.Clear();
 
             if (((DataGrid)sender).SelectedItem == null)
             {
@@ -154,12 +155,12 @@ namespace Universe
                 chk.Checked += CheckBoxOnChecked;
                 chk.Unchecked += CheckBoxOnUnchecked;
                 _ = stCheckBoxes.Children.Add(chk);
-            }
+            }*/
         }
 
         private void CheckBoxOnChecked(object sender, RoutedEventArgs routedEventArgs)
         {
-            int planetaId = ((Planetum)planetsDataGrid.SelectedItem).Id;
+            /*int planetaId = ((Planetum)planetsDataGrid.SelectedItem).Id;
             string vlastnostNazev = ((CheckBox)sender).Content.ToString();
 
             Vlastnost vlastnost = _context.Vlastnosts.SingleOrDefault(x => x.Nazev == vlastnostNazev);
@@ -168,12 +169,12 @@ namespace Universe
             VlastnostiPlanet vlastnostiPlanet = new() { PlanetaId = planetaId, VlastnostId = vlastnostId };
             _ = _context.VlastnostiPlanets.Add(vlastnostiPlanet);
             _ = _context.SaveChanges();
-            RefreshDataGrids();
+            RefreshDataGrids();*/
         }
 
         private void CheckBoxOnUnchecked(object sender, RoutedEventArgs routedEventArgs)
         {
-            int planetaId = ((Planetum)planetsDataGrid.SelectedItem).Id;
+            /*int planetaId = ((Planetum)planetsDataGrid.SelectedItem).Id;
             int vlastnostId = _context.Vlastnosts.Where(x => x.Nazev == ((CheckBox)sender).Content.ToString()).FirstOrDefault().Id;
 
             VlastnostiPlanet vlastnostiPlanet = _context.VlastnostiPlanets.FirstOrDefault(x => x.VlastnostId == vlastnostId && x.PlanetaId == planetaId);
@@ -183,10 +184,10 @@ namespace Universe
                 _ = _context.VlastnostiPlanets.Remove(vlastnostiPlanet);
             }
             _ = _context.SaveChanges();
-            RefreshDataGrids();
+            RefreshDataGrids();*/
         }
 
-        private void BtnAddPlanet_Click(object sender, RoutedEventArgs e) 
+        private void BtnAddPlanet_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Doplnim");
 
@@ -210,4 +211,3 @@ namespace Universe
         #endregion
     }
 }
-

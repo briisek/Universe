@@ -50,7 +50,8 @@
                             EnableRowVirtualization="True" 
                             ItemsSource="{Binding Source={StaticResource vlastnostViewSource}}" 
                             Margin="13,13,43,47" RowDetailsVisibilityMode="VisibleWhenSelected"
-                            PreviewKeyDown="DataGrid_PreviewKeyDown">
+                            PreviewKeyDown="DataGrid_PreviewKeyDown"
+                            SelectionChanged="DataGrid_SelectionChanged">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="SizeToHeader" IsReadOnly="True"/>
                             <DataGridTextColumn Binding="{Binding Nazev}" Header="Name" Width="*"/>

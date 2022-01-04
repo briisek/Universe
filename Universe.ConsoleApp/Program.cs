@@ -7,8 +7,9 @@ namespace Universe.ConsoleApp
     {
         static void Main(string[] args)
         {
-            UniverseContext universeContext = new UniverseContext();
-            universeContext.ListPlanetProperties();
+            System.Console.WriteLine("foo");
+            //UniverseContext universeContext = new UniverseContext();
+            //universeContext.ListPlanetProperties();
         }
     }
 }

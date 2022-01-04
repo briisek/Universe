@@ -69,6 +69,7 @@ C:\pool\Universe\Universe\bin\Debug\net5.0-windows\ref\Universe.dll
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\Universe.pdb
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\Castle.Core.dll
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\Humanizer.dll
+C:\pool\Universe\Universe\bin\Debug\net5.0-windows\linq2db.dll
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\Microsoft.Data.SqlClient.dll
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\Microsoft.EntityFrameworkCore.dll
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -92,6 +93,7 @@ C:\pool\Universe\Universe\bin\Debug\net5.0-windows\Microsoft.IdentityModel.Proto
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\Microsoft.IdentityModel.Tokens.dll
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\Newtonsoft.Json.dll
+C:\pool\Universe\Universe\bin\Debug\net5.0-windows\System.Data.SqlClient.dll
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\System.Diagnostics.DiagnosticSource.dll
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\System.IdentityModel.Tokens.Jwt.dll
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\System.Runtime.Caching.dll
@@ -105,7 +107,14 @@ C:\pool\Universe\Universe\bin\Debug\net5.0-windows\runtimes\win-x64\native\Micro
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\pool\Universe\Universe\bin\Debug\net5.0-windows\runtimes\win-arm64\native\sni.dll
+C:\pool\Universe\Universe\bin\Debug\net5.0-windows\runtimes\win-x64\native\sni.dll
+C:\pool\Universe\Universe\bin\Debug\net5.0-windows\runtimes\win-x86\native\sni.dll
+C:\pool\Universe\Universe\bin\Debug\net5.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\pool\Universe\Universe\bin\Debug\net5.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\pool\Universe\Universe\bin\Debug\net5.0-windows\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\pool\Universe\Universe\bin\Debug\net5.0-windows\Universe.Entities.dll
+C:\pool\Universe\Universe\bin\Debug\net5.0-windows\Universe.Entities.pdb
 C:\pool\Universe\Universe\obj\Debug\net5.0-windows\Universe.csproj.AssemblyReference.cache
 C:\pool\Universe\Universe\obj\Debug\net5.0-windows\MainWindow.g.cs
 C:\pool\Universe\Universe\obj\Debug\net5.0-windows\App.g.cs
