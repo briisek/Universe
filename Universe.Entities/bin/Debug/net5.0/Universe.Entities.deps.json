@@ -1,0 +1,52 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Universe.Entities/1.0.0": {
+        "dependencies": {
+          "linq2db": "4.0.0-preview.10"
+        },
+        "runtime": {
+          "Universe.Entities.dll": {}
+        }
+      },
+      "linq2db/4.0.0-preview.10": {
+        "dependencies": {
+          "System.ComponentModel.Annotations": "4.7.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/linq2db.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "System.ComponentModel.Annotations/4.7.0": {}
+    }
+  },
+  "libraries": {
+    "Universe.Entities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "linq2db/4.0.0-preview.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8MyCO7d2nznAEWdts/IBTnB8vUoS2V5qDTQiR/ohs7yYJKKOpaAELf1i5MIlhO3DT3kBrJPETO3DIY2DbODGmA==",
+      "path": "linq2db/4.0.0-preview.10",
+      "hashPath": "linq2db.4.0.0-preview.10.nupkg.sha512"
+    },
+    "System.ComponentModel.Annotations/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0YFqjhp/mYkDGpU0Ye1GjE53HMp9UVfGN7seGpAMttAC0C40v5gw598jCgpbBLMmCo0E5YRLBv5Z2doypO49ZQ==",
+      "path": "system.componentmodel.annotations/4.7.0",
+      "hashPath": "system.componentmodel.annotations.4.7.0.nupkg.sha512"
+    }
+  }
+}

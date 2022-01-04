@@ -1,0 +1,12 @@
+C:\pool\Universe\Universe.Entities\bin\Debug\net5.0\Universe.Entities.deps.json
+C:\pool\Universe\Universe.Entities\bin\Debug\net5.0\Universe.Entities.dll
+C:\pool\Universe\Universe.Entities\bin\Debug\net5.0\ref\Universe.Entities.dll
+C:\pool\Universe\Universe.Entities\bin\Debug\net5.0\Universe.Entities.pdb
+C:\pool\Universe\Universe.Entities\obj\Debug\net5.0\Universe.Entities.csproj.AssemblyReference.cache
+C:\pool\Universe\Universe.Entities\obj\Debug\net5.0\Universe.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\pool\Universe\Universe.Entities\obj\Debug\net5.0\Universe.Entities.AssemblyInfoInputs.cache
+C:\pool\Universe\Universe.Entities\obj\Debug\net5.0\Universe.Entities.AssemblyInfo.cs
+C:\pool\Universe\Universe.Entities\obj\Debug\net5.0\Universe.Entities.csproj.CoreCompileInputs.cache
+C:\pool\Universe\Universe.Entities\obj\Debug\net5.0\Universe.Entities.dll
+C:\pool\Universe\Universe.Entities\obj\Debug\net5.0\ref\Universe.Entities.dll
+C:\pool\Universe\Universe.Entities\obj\Debug\net5.0\Universe.Entities.pdb
