@@ -13,7 +13,7 @@ namespace Universe.Entities
 {
     public static class UniverseContext
     {
-        private const string ConnectionString =
+        public const string ConnectionString =
             "Server=sqltest02;Database=Vesmir;Trusted_Connection=True";
 
         #region Vlastnost
@@ -46,7 +46,7 @@ namespace Universe.Entities
         {
             using (var db = SqlServerTools.CreateDataConnection(ConnectionString))
             {
-                int newId = GetAllVlastnosts().Max(x => x.Id) + 1;
+                int newId = db.GetTable<Vlastnost>().Max(x => x.Id) + 1;
 
                 Vlastnost vlastnost = new Vlastnost();
                 vlastnost.Id = newId;

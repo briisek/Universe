@@ -1,24 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using LinqToDB.DataProvider.SqlServer;
+﻿using System.Collections.Generic;
 using LinqToDB.Mapping;
+using Nielsen.Admosphere.Fw2.DataAccess.Linq2db;
+using Nielsen.Admosphere.Fw2.DataAccess.Linq2db.DaoFactory;
+using Universe.Entities.Dao.Impl;
 
 namespace Universe.Entities
 {
+    [DaoFactory(DaoType = typeof(GalaxieDao))]
     [Table("Galaxie")]
-    public class Galaxie
+    public class Galaxie : DatabaseEntityIdentityIntKey<Galaxie>
     {
-        public Galaxie()
-        {
-            Planeta = new HashSet<Planetum>();
-        }
-        
-        [PrimaryKey]
-        public int Id { get; set; }
-
         [Column, Nullable]
         public string Jmeno { get; set; }
 
@@ -31,6 +22,6 @@ namespace Universe.Entities
         [Column, Nullable]
         public long? PolohaZ { get; set; }
 
-        public ICollection<Planetum> Planeta { get; set; } = new ObservableCollection<Planetum>();
+        public ICollection<Planetum> Planeta { get; set; } = new HashSet<Planetum>();
     }
 }

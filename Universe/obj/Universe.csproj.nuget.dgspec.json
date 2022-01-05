@@ -14,17 +14,19 @@
         "outputPath": "C:\\pool\\Universe\\Universe.Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "C:\\pool\\Universe\\NuGet.Config",
           "C:\\Users\\bzalesak\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "netstandard2.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://tfs.mediaresearch.cz/Framework/_packaging/Framework2NugetFeed/nuget/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
             "projectReferences": {}
           }
         },
@@ -35,16 +37,26 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
           "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "Nielsen.Admosphere.DataAccess.Linq2db": {
+              "target": "Package",
+              "version": "[1.5.2, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
-              "version": "[4.8.3, )"
+              "version": "[4.8.2, )"
             },
             "linq2db": {
               "target": "Package",
-              "version": "[4.0.0-preview.10, )"
+              "version": "[3.1.6, )"
             }
           },
           "imports": [
@@ -57,11 +69,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
         }
       }
@@ -76,13 +83,15 @@
         "outputPath": "C:\\pool\\Universe\\Universe\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "C:\\pool\\Universe\\NuGet.Config",
           "C:\\Users\\bzalesak\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0-windows"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://tfs.mediaresearch.cz/Framework/_packaging/Framework2NugetFeed/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net5.0-windows7.0": {
@@ -104,19 +113,21 @@
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
+            "Autofac": {
               "target": "Package",
-              "version": "[5.0.11, )"
+              "version": "[6.3.0, )"
             },
-            "Microsoft.EntityFrameworkCore.Proxies": {
+            "Nielsen.Admosphere.Fw2.DataAccess.Linq2db.Autofac": {
               "target": "Package",
-              "version": "[5.0.11, )"
+              "version": "[1.5.1, )"
             },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
+            "System.Data.Common": {
               "target": "Package",
-              "version": "[5.0.11, )"
+              "version": "[4.3.0, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
             }
           },
           "imports": [

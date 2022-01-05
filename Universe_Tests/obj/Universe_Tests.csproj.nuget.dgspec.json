@@ -14,13 +14,15 @@
         "outputPath": "C:\\pool\\Universe\\Universe_Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "C:\\pool\\Universe\\NuGet.Config",
           "C:\\Users\\bzalesak\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://tfs.mediaresearch.cz/Framework/_packaging/Framework2NugetFeed/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {

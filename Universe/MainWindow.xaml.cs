@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.ComponentModel;
-//using Microsoft.EntityFrameworkCore;
-//using Universe.DatabaseLayer;
-//using Universe.DatabaseLayer.Model;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using Universe.DatabaseLayer;
+using Autofac;
+using Nielsen.Admosphere.Fw2.DataAccess.Linq2db;
+using Nielsen.Admosphere.Fw2.DataAccess.Linq2db.Dao;
+using Nielsen.Admosphere.Fw2.DataAccess.Linq2db.DaoFactory;
+using Nielsen.Admosphere.Fw2.DataAccess.Linq2db.Transactions;
 using Universe.Entities;
+using Universe.Entities.Dao;
 
 namespace Universe
 {
@@ -30,11 +22,20 @@ namespace Universe
     {
         private CollectionViewSource vlastnostViewSource;
         private CollectionViewSource galaxieViewSource;
-
+        private readonly IEntitiesSource m_entitiesSource; 
+        
         public MainWindow()
         {
             InitializeComponent();
 
+            AutofacInit init = new AutofacInit();
+            init.Init();
+
+            m_entitiesSource = AutofacInit.Scope.Resolve<IEntitiesSource>();
+            
+            
+                
+                
             vlastnostViewSource = (CollectionViewSource) FindResource(nameof(vlastnostViewSource));
             galaxieViewSource = (CollectionViewSource) FindResource(nameof(galaxieViewSource));
         }
@@ -104,7 +105,10 @@ namespace Universe
 
         private void RefreshDataGrids()
         {
-            vlastnostViewSource.Source = UniverseContext.GetAllVlastnosts();
+            vlastnostViewSource.Source = m_entitiesSource.GetAllVlastnosts();
+            
+            galaxieViewSource.Source = new ObservableCollection<Galaxie>(m_entitiesSource.GetAllGalaxies());
+            
             propertiesDataGrid.Items.Refresh();
             planetsDataGrid.Items.Refresh();
         }
